@@ -14,28 +14,22 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.uptoskills.Adapters.CustomAdapter2;
-import com.example.uptoskills.CourseFragments.AIFragment;
-import com.example.uptoskills.CourseFragments.AerospaceFragment;
-import com.example.uptoskills.CourseFragments.Agriculture;
 import com.example.uptoskills.CourseFragments.AllCoursesFragment;
-import com.example.uptoskills.CourseFragments.ArchitectureFragment;
-import com.example.uptoskills.CourseFragments.CivilFragment;
 import com.example.uptoskills.database.coursedatabase;
 import com.google.android.material.tabs.TabLayout;
 
 public class course extends AppCompatActivity {
     static RecyclerView rv ;
-    CustomAdapter2 cax;
     public static int vlog_position = -1;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private AllCoursesFragment allCoursesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-//        rv = findViewById(R.id.list_Mode);
         ImageView back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,50 +61,26 @@ public class course extends AppCompatActivity {
         for (String title : tabTitles) {
             tabLayout.addTab(tabLayout.newTab().setText(title));
         }
+
+        // Initialize the database
         coursedatabase.initializeDatabase();
-        showFragment(new AllCoursesFragment());
-        // add fragment which use logic as to each tab
+
+        // Show the initial fragment
+        showFragment(AllCoursesFragment.newInstance());
+
+        // Set the listener for tab selection
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                switch (position) {
-                    case 0:
-                        showFragment(new AllCoursesFragment());
-                        Toast.makeText(course.this,"All",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        showFragment(new AerospaceFragment());
-                        Toast.makeText(course.this,"Aerospace",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        Toast.makeText(course.this,"Agriculture",Toast.LENGTH_SHORT).show();
-                        showFragment(new Agriculture());
-                        break;
-                    case 3:
-                        showFragment(new ArchitectureFragment());
-                        Toast.makeText(course.this,"Architecture",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 4:
-                        showFragment(new AIFragment());
-                        Toast.makeText(course.this,"AI",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 5:
-                        showFragment(new CivilFragment());
-                        Toast.makeText(course.this,"civil Engineering",Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        showFragment(new AllCoursesFragment());
-                        break;
-                   //add more
-                }
+                String selectedType = tab.getText().toString();
+                showFragment(AllCoursesFragment.newInstance(selectedType));
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
+            public void onTabUnselected(TabLayout.Tab tab) {}
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) { }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 

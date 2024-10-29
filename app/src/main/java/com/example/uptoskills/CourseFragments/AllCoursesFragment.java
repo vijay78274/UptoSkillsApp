@@ -21,53 +21,54 @@ import java.util.Map;
 import java.util.Set;
 
 public class AllCoursesFragment extends Fragment {
-
+    List<String> courses;
     private RecyclerView recyclerView;
-    private FragmentCourse_Adapter fragmentAdpater;
-    private static final String TAG = "AllCoursesFragment";
-    public AllCoursesFragment() {
+    private FragmentCourse_Adapter fragmentAdapter;
+    List<String> courseTypes;
+    private String currentCourseType = "ALL"; // Default to "ALL"
 
-    }
+    public AllCoursesFragment() {}
 
-    public static AllCoursesFragment newInstance(String programType) {
-        AllCoursesFragment fragment = new AllCoursesFragment();
-        Bundle args = new Bundle();
-        args.putString("programType", programType); // Passing program type
-        fragment.setArguments(args);
-        return fragment;
+    public static AllCoursesFragment newInstance(String currentCourseType) {
+        return new AllCoursesFragment();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Log.d("map:","initialized");
-        String len = String.valueOf(coursedatabase.map.get("Agriculture"));
-        for(Map.Entry<String,List<String>> entry : coursedatabase.map.entrySet()){
-            String key = entry.getKey();
-            String value= entry.getValue().toString();
-            Log.d(key+" ",value);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_courses, container, false);
         recyclerView = view.findViewById(R.id.list);
-        if (recyclerView != null) {
-            Log.d(TAG, "RecyclerView initialized successfully.");
-        } else {
-            Log.e(TAG, "RecyclerView is null!");
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        coursedatabase.initializeDatabase();
+        courseTypes=new ArrayList<>();
+        for(int i=0;i<courses.size();i++){
+            courseTypes.add(currentCourseType);
         }
-
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-        fragmentAdpater = new FragmentCourse_Adapter(getContext());
-        if (fragmentAdpater != null) {
-            Log.d(TAG, "Adapter initialized and set.");
-        }
-        recyclerView.setAdapter(fragmentAdpater);
+        // Initialize adapter with an empty list initially
+        fragmentAdapter = new FragmentCourse_Adapter(getContext(),courses,courseTypes);
+        recyclerView.setAdapter(fragmentAdapter);
+        // Load data for the default course type or any specific type passed
+        loadCourses(currentCourseType);
 
         return view;
+    }
+
+    public void updateCourses(String courseType) {
+        // Update the current course type and reload courses
+        currentCourseType = courseType;
+        loadCourses(courseType);
+    }
+
+    private void loadCourses(String courseType) {
+        // Fetch all courses or filtered by course type
+        if ("ALL".equals(courseType)) {
+            courses = coursedatabase.name;
+        } else {
+            // Retrieve course list for the type or default to an empty list if not found
+            courses = coursedatabase.map.getOrDefault(courseType, new ArrayList<>());
+        }
+
+        // Update adapter with the new list
+        fragmentAdapter.setCourses(courses,courseTypes);
+        fragmentAdapter.notifyDataSetChanged();
     }
 }
