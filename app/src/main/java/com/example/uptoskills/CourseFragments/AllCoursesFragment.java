@@ -25,16 +25,14 @@ public class AllCoursesFragment extends Fragment {
     private RecyclerView recyclerView;
     private FragmentCourse_Adapter fragmentAdpater;
     private static final String TAG = "AllCoursesFragment";
-
     public AllCoursesFragment() {
 
     }
 
-    public static AllCoursesFragment newInstance(String param1, String param2) {
+    public static AllCoursesFragment newInstance(String programType) {
         AllCoursesFragment fragment = new AllCoursesFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
+        args.putString("programType", programType); // Passing program type
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,39 +40,13 @@ public class AllCoursesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        coursedatabase.name.clear();
-        coursedatabase.typeofprograme.clear();
-        coursedatabase.name.add("Visual communication design for digital media");
-        coursedatabase.name.add("Urban land use and transport palnning");
-        coursedatabase.name.add("Environmental impact assessment");
-        coursedatabase.name.add("Architectural Acoustics");
-        coursedatabase.name.add("Dairy and Food Process and products technology");
-        coursedatabase.name.add("Soil and Water conserving Engineering");
-        coursedatabase.name.add("Thermal Processing of Food");
-        coursedatabase.name.add("Organic Farming");
 
-        coursedatabase.typeofprograme.add("Architecture");
-        coursedatabase.typeofprograme.add("Architecture");
-        coursedatabase.typeofprograme.add("Architecture");
-        coursedatabase.typeofprograme.add("Architecture");
-        coursedatabase.typeofprograme.add("Agriculture");
-        coursedatabase.typeofprograme.add("Agriculture");
-        coursedatabase.typeofprograme.add("Agriculture");
-        coursedatabase.typeofprograme.add("Agriculture");
-        Map<String,List<String>> map = new HashMap<String, List<String>>() {};
-        for (int i = 0; i < coursedatabase.name.size(); i++) {
-            String programType = coursedatabase.typeofprograme.get(i);
-            String courseName = coursedatabase.name.get(i);
-            map.putIfAbsent(programType, new ArrayList<>());
-
-            map.get(programType).add(courseName);
-        }
         Log.d("map:","initialized");
-        String len = String.valueOf(map.get("Agriculture"));
-        for(Map.Entry<String,List<String>> entry : map.entrySet()){
+        String len = String.valueOf(coursedatabase.map.get("Agriculture"));
+        for(Map.Entry<String,List<String>> entry : coursedatabase.map.entrySet()){
             String key = entry.getKey();
             String value= entry.getValue().toString();
-            Log.d(key,value);
+            Log.d(key+" ",value);
         }
     }
 

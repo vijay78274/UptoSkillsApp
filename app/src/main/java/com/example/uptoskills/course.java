@@ -67,6 +67,7 @@ public class course extends AppCompatActivity {
         for (String title : tabTitles) {
             tabLayout.addTab(tabLayout.newTab().setText(title));
         }
+        coursedatabase.initializeDatabase();
         showFragment(new AllCoursesFragment());
         // add fragment which use logic as to each tab
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
