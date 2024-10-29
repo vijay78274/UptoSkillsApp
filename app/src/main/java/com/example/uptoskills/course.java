@@ -19,8 +19,6 @@ import com.example.uptoskills.database.coursedatabase;
 import com.google.android.material.tabs.TabLayout;
 
 public class course extends AppCompatActivity {
-    static RecyclerView rv ;
-    CustomAdapter2 cax;
     public static int vlog_position = -1;
 
     private TabLayout tabLayout;
@@ -30,7 +28,6 @@ public class course extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-//        rv = findViewById(R.id.list_Mode);
         ImageView back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,42 +60,56 @@ public class course extends AppCompatActivity {
             tabLayout.addTab(tabLayout.newTab().setText(title));
         }
         coursedatabase.initializeDatabase();
-        showFragment(new AllCoursesFragment());
+        showFragment("All");
         // add fragment which use logic as to each tab
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
+                String courseType = "All";
                 switch (position) {
                     case 0:
-                        showFragment(new AllCoursesFragment());
-                        Toast.makeText(course.this,"All",Toast.LENGTH_SHORT).show();
+                        courseType="All";
+//                        Toast.makeText(course.this,"All",Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-//                        showFragment(new AerospaceFragment());
-                        Toast.makeText(course.this,"Aerospace",Toast.LENGTH_SHORT).show();
+                        courseType="Aerospace Engineering";
                         break;
                     case 2:
-                        Toast.makeText(course.this,"Agriculture",Toast.LENGTH_SHORT).show();
-//                        showFragment(new Agriculture());
+                        courseType="Agriculture";
                         break;
                     case 3:
-//                        showFragment(new ArchitectureFragment());
-                        Toast.makeText(course.this,"Architecture",Toast.LENGTH_SHORT).show();
+                        courseType="Architecture";
                         break;
                     case 4:
-//                        showFragment(new AIFragment());
-                        Toast.makeText(course.this,"AI",Toast.LENGTH_SHORT).show();
+                        courseType="Artificial Intelligence";
                         break;
                     case 5:
-//                        showFragment(new CivilFragment());
-                        Toast.makeText(course.this,"civil Engineering",Toast.LENGTH_SHORT).show();
+                        courseType="Civil Engineering";
+                        break;
+                    case 6:
+                        courseType="Commerce";
+                        break;
+                    case 7:
+                        courseType="Computer Science Engineering";
+                        break;
+                    case 8:
+                        courseType="Computer Science/IT";
+                        break;
+                    case 9:
+                        courseType="Economics";
+                        break;
+                    case 10:
+                        courseType="Electrical/Engineering";
+                        break;
+                    case 11:
+                        courseType="Everyone can learn";
                         break;
                     default:
-                        showFragment(new AllCoursesFragment());
+                        courseType="All";
                         break;
-                   //add more
                 }
+                showFragment(courseType);
             }
 
             @Override
@@ -109,34 +120,14 @@ public class course extends AppCompatActivity {
         });
     }
 
-    private void showFragment(Fragment fragment) {
-
+    private void showFragment(String courseType) {
+        AllCoursesFragment fragment = AllCoursesFragment.newInstance(courseType);
+        Bundle args = new Bundle();
+        args.putString("coursetype", courseType);
+        fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.FragmentCont, fragment);
         fragmentTransaction.commit();
     }
 }
-
-
-
-//        rv.setLayoutManager(new GridLayoutManager(this,2));
-//        rv.addOnItemTouchListener(
-//                new RecyclerItemClickListener(course.this, rv ,new RecyclerItemClickListener.OnItemClickListener() {
-//                    @Override public void onItemClick(View view, int position) {
-//                        vlog_position = position;
-//                        // do whatever
-//                        startActivity(new Intent(course.this , courseview.class));
-//                    }
-//
-//                    @Override
-//                    public void onLongItemClick(View view, int position) {
-//                    }
-//                })
-//        );
-//
-//
-//
-//
-//        cax = new CustomAdapter2(course.this);
-//        rv.setAdapter(cax);
