@@ -36,7 +36,7 @@ public class splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash2);
 
-        Log.d("lllh" , "hi");
+        Log.d("Splash" , "started");
         if(CheckNetwork.isInternetAvailable(splash.this))
         {
             vlogs();
@@ -95,7 +95,7 @@ public class splash extends AppCompatActivity {
                                     blogdatabase.url1.add(url);
                                     blogdatabase.description1.add(content);
                                     blogdatabase.date1.add(date);
-                                    Log.d("hty",response);
+                                    Log.d("",response);
                                 }
 
                             }
@@ -115,7 +115,7 @@ public class splash extends AppCompatActivity {
         }
 
     }
-
+//    https://uptoskills.com/wp-json/learnpress/v1/courses
     void course(){
         String url = "https://uptoskills.com/wp-json/learnpress/v1/courses";
         RequestQueue queue = Volley.newRequestQueue(splash.this);
@@ -125,49 +125,54 @@ public class splash extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONArray data = new JSONArray(response);
-                            Log.d("aaa",data+"");
+                            Log.d("courses",data+"");
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject obj = data.getJSONObject(i);
                                 String name = obj.getString("name");
                                 String imageurl = obj.getString("image");
-                                String content = obj.getString("content");
-                                String duration = obj.getString("duration");
-                                String count_students = obj.getString("count_students");
-                                String rating = obj.getString("rating");
-                                String price_rendered = obj.getString("price_rendered");
-                                String origin_price_rendered = obj.getString("origin_price_rendered");
+//                                String content = obj.getString("content");
+//                                String duration = obj.getString("duration");
+//                                String count_students = obj.getString("count_students");
+//                                String rating = obj.getString("rating");
+//                                String price_rendered = obj.getString("price_rendered");
+//                                String origin_price_rendered = obj.getString("origin_price_rendered");
                                 JSONArray cat = obj.getJSONArray("categories");
                                 String typeofprograme = cat.getJSONObject(0).getString("name");
 
                                 coursedatabase.name.add(name);
                                 coursedatabase.image_url.add(imageurl);
-                                coursedatabase.content.add(content);
-                                coursedatabase.duration.add(duration);
-                                coursedatabase.count_students.add(count_students);
-                                coursedatabase.rating.add(rating);
-                                coursedatabase.price_rendered.add(price_rendered);
-                                coursedatabase.origin_price_rendered.add(origin_price_rendered);
+//                                coursedatabase.content.add(content);
+//                                coursedatabase.duration.add(duration);
+//                                coursedatabase.count_students.add(count_students);
+//                                coursedatabase.rating.add(rating);
+//                                coursedatabase.price_rendered.add(price_rendered);
+//                                coursedatabase.origin_price_rendered.add(origin_price_rendered);
+//                                coursedatabase.typeofprograme.add(typeofprograme);
+//                                coursedatabase.count_students.add(count_students);
+//                                coursedatabase.rating.add(rating);
+//                                coursedatabase.price_rendered.add(price_rendered);
+//                                coursedatabase.origin_price_rendered.add(origin_price_rendered);
                                 coursedatabase.typeofprograme.add(typeofprograme);
-                                coursedatabase.count_students.add(count_students);
-                                coursedatabase.rating.add(rating);
-                                coursedatabase.price_rendered.add(price_rendered);
-                                coursedatabase.origin_price_rendered.add(origin_price_rendered);
-                                coursedatabase.typeofprograme.add(typeofprograme);
+                            }
+//                            for(int i=0;i<coursedatabase.name.size();i++){
+//                                CourseModel model = new CourseModel(coursedatabase.name.get(i),coursedatabase.typeofprograme.get(i),coursedatabase.image_url.get(i));
+//                                Log.d("Model",model.getTypeofprograme()+" "+model.getImage_url());
+//                            }
+                            for(int i=0;i<coursedatabase.name.size();i++){
+                                Log.d("coursesName: ",coursedatabase.name.get(i));
+                                Log.d("programType: ",coursedatabase.typeofprograme.get(i));
                             }
 
                         }
                         catch (Exception e){
-                            Log.d("llll","not work"+e);
-
+                            Log.d("catchException","not work"+e);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // textView.setText("That didn't work!");
-                Log.d("llll","not work"+error);
-
-
+                Log.d("onErrrorResponse","not work"+error);
             }
         });
 

@@ -59,9 +59,6 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.ViewHold
             typeofprograme.add(coursedatabase.typeofprograme.get(i));
         }
 
-
-
-
     }
 
     @NonNull
