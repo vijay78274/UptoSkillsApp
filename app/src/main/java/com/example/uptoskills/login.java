@@ -153,9 +153,6 @@ public class login extends AppCompatActivity {
 
                     new LoginTask().execute();
 
-
-
-
                 }
             }
         });

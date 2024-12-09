@@ -225,8 +225,10 @@ public class MainActivity extends AppCompatActivity {
                             return true;
                         }
                     });
-
                     popupMenu.show();
+                }
+                else if(item.getItemId()==R.id.Job){
+                    startActivity(new Intent(MainActivity.this, job.class));
                 }
 
                 return true;

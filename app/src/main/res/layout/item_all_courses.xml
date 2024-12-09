@@ -14,9 +14,10 @@
         android:layout_marginTop="20dp">
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/computer_software_eng" />
+            android:src="@drawable/computer_software_eng" />
         <ProgressBar
             android:id="@+id/progressCourseBar"
             android:layout_width="wrap_content"
@@ -24,8 +25,6 @@
             android:layout_centerInParent="true"
             android:visibility="gone"
             android:indeterminate="true" />
-
-
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/linearLayoutContent"
@@ -75,7 +74,7 @@
         android:id="@+id/computerSciTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:background="@drawable/orange_bg"
         android:paddingHorizontal="13dp"
         android:paddingVertical="8dp"

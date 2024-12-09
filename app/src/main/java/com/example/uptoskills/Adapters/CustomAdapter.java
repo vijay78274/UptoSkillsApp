@@ -1,6 +1,7 @@
 package com.example.uptoskills.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.uptoskills.R;
 import com.example.uptoskills.blogdatabase;
+import com.example.uptoskills.courseview;
 
 import java.util.ArrayList;
 import java.util.List;

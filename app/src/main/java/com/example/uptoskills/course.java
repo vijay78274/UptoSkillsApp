@@ -34,7 +34,6 @@ public class course extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
                 startActivity(new Intent(course.this , Main2Activity.class));
-
             }
         });
 

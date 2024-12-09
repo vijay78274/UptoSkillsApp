@@ -19,41 +19,42 @@ import com.google.android.material.button.MaterialButton;
 
 public class courseview extends AppCompatActivity {
     String htmlText = "";
-
+    String position="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate( savedInstanceState);
         setContentView(R.layout.activity_courseview);
+//        position = getIntent().getStringExtra("position");
+        int pos = getIntent().getIntExtra("position",0);
         ImageView courseimage  = findViewById(R.id.courseImage);
-        Glide.with(this).load(coursedatabase.image_url.get(course.vlog_position)).into(courseimage);
+        Glide.with(this).load(coursedatabase.image_url.get(pos)).into(courseimage);
         TextView coursename = findViewById(R.id.courseName);
-        coursename.setText(coursedatabase.name.get(course.vlog_position));
+        coursename.setText(coursedatabase.name.get(pos));
         TextView CourseCategory = findViewById(R.id.CourseCategory);
-        CourseCategory.setText(coursedatabase.typeofprograme.get(course.vlog_position));
-   TextView courseRatings = findViewById(R.id.courseRatings);
-        courseRatings.setText("Rating: "+coursedatabase.rating.get(course.vlog_position)+" stars");
+        CourseCategory.setText(coursedatabase.typeofprograme.get(pos));
+        TextView courseRatings = findViewById(R.id.courseRatings);
+        courseRatings.setText("Rating: "+coursedatabase.rating.get(pos)+" stars");
         TextView duration = findViewById(R.id.duration);
-        duration.setText(coursedatabase.duration.get(course.vlog_position));
+        duration.setText(coursedatabase.duration.get(pos));
         TextView price = findViewById(R.id.price);
-        price.setText(coursedatabase.price_rendered.get(course.vlog_position));
+        price.setText(coursedatabase.price_rendered.get(pos));
         TextView CourseDescription = findViewById(R.id.CourseDescription);
-        String a  = coursedatabase.content.get(course.vlog_position);
-        int k = 0;
-        for (int i = 0; i <a.length(); i++) {
-            if(a.charAt(i) =='['){
-                k =1;
-                continue;
-            }
-            if(a.charAt(i) == ']'){
-                k = 0;
-                continue;
-            }
-            if(k == 0){
-                htmlText = htmlText + a.charAt(i);
-            }
-        }
-
-        CourseDescription.setText(Html.fromHtml(htmlText));
+//        String a  = coursedatabase.content.get(pos);
+//        int k = 0;
+//        for (int i = 0; i <a.length(); i++) {
+//            if(a.charAt(i) =='['){
+//                k =1;
+//                continue;
+//            }
+//            if(a.charAt(i) == ']'){
+//                k = 0;
+//                continue;
+//            }
+//            if(k == 0){
+//                htmlText = htmlText + a.charAt(i);
+//            }
+//        }
+//        CourseDescription.setText(Html.fromHtml(htmlText));
         MaterialButton enroll  = findViewById(R.id.enroll);
 
         enroll.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +90,7 @@ public class courseview extends AppCompatActivity {
             public void onClick(View v) {
                 des.setVisibility(View.VISIBLE);
                 cer.setVisibility(View.GONE);
-                CourseDescription.setText("Rating: "+coursedatabase.rating.get(course.vlog_position)+" stars");
+                CourseDescription.setText("Rating: "+coursedatabase.rating.get(pos)+" stars");
             }
         });
 

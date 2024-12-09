@@ -15,8 +15,9 @@ import com.example.uptoskills.jobdatabase;
 
 public class CustomAdapter3 extends RecyclerView.Adapter<CustomAdapter3.ViewHolder> {
 
+    Context context;
     public CustomAdapter3(Context context) {
-
+        this.context=context;
     }
 
     @NonNull

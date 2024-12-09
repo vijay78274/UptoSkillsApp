@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.uptoskills.Adapters.CustomAdapter3;
 
@@ -38,11 +40,10 @@ public class job extends AppCompatActivity {
                     }
                 })
         );
-
+        Log.d("JobDatabase size: ",jobdatabase.jobtype.size()+"");
 
         nnn = new CustomAdapter3(job.this);
         rv.setAdapter(nnn);
-
 
         ImageView back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +51,6 @@ public class job extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
                 startActivity(new Intent(job.this , Main2Activity.class));
-
             }
         });
 
