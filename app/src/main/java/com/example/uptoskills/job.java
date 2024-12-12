@@ -40,7 +40,7 @@ public class job extends AppCompatActivity {
                     }
                 })
         );
-        Log.d("JobDatabase size: ",jobdatabase.jobtype.size()+"");
+        Log.d("JobDatabase size: ",jobdatabase.title.size()+"");
 
         nnn = new CustomAdapter3(job.this);
         rv.setAdapter(nnn);
@@ -53,6 +53,5 @@ public class job extends AppCompatActivity {
                 startActivity(new Intent(job.this , Main2Activity.class));
             }
         });
-
     }
 }

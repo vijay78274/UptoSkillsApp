@@ -1,6 +1,7 @@
 package com.example.uptoskills.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,13 +32,16 @@ public class CustomAdapter3 extends RecyclerView.Adapter<CustomAdapter3.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.job.setText(jobdatabase.title.get(position));
         holder.location.setText(jobdatabase.location.get(position));
-        holder.decription.setText(jobdatabase.outerdata.get(position));
-        holder.posted.setText(jobdatabase.date.get(position).substring(0,10));
+        holder.decription.setText(jobdatabase.description.get(position));
+        Log.d("job title:",jobdatabase.title.get(position)+"");
+        Log.d("job location:",jobdatabase.location.get(position)+"");
+        Log.d("job description:",jobdatabase.description.get(position)+"");
+//        holder.posted.setText(jobdatabase.date.get(position).substring(0,10));
     }
 
     @Override
     public int getItemCount() {
-        return jobdatabase.date.size();
+        return jobdatabase.title.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -55,7 +59,7 @@ public class CustomAdapter3 extends RecyclerView.Adapter<CustomAdapter3.ViewHold
             location = itemView.findViewById(R.id.location);
             decription = itemView.findViewById(R.id.description);
             posted = itemView.findViewById(R.id.posted);
-            img = itemView.findViewById(R.id.img);
+//            img = itemView.findViewById(R.id.img);
         }
     }
 }

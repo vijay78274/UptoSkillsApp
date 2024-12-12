@@ -120,29 +120,36 @@ public class splash extends AppCompatActivity {
                                     Log.d("Job Data", data+""); // Log each job entry
 
                                     JSONObject obj = data.getJSONObject(i);
-                                    JSONObject obj2 = obj.getJSONObject("jobtitle");
-                                    JSONObject obj3 = obj.getJSONObject("content");
-                                    JSONObject obj4 = obj.getJSONObject("meta");
-                                    JSONObject links = obj.getJSONObject("_links");
-                                    JSONArray term = links.getJSONArray("wp:term");
-                                    JSONObject link = term.getJSONObject(0);
-                                    String date = obj.getString("date");
-                                    String title = obj2.getString("rendered");
-                                    String innerdata = obj3.getString("rendered");
-                                    String outerdata = obj4.getString("_company_tagline");
-                                    String location = obj4.getString("_job_location");
-                                    String salary = obj4.getString("_job_salary");
+//                                    JSONObject obj2 = obj.getJSONObject("jobtitle");
+//                                    JSONObject obj3 = obj.getJSONObject("content");
+//                                    JSONObject obj4 = obj.getJSONObject("meta");
+//                                    JSONObject links = obj.getJSONObject("_links");
+//                                    JSONArray term = links.getJSONArray("wp:term");
+//                                    JSONObject link = term.getJSONObject(0);
+//                                    String date = obj.getString("date");
+//                                    String title = obj2.getString("rendered");
+                                    String title = obj.getString("jobtitle");
+                                    String companyName = obj.getString("companyname");
+                                    String jobType = obj.getString("jobtype");
+                                    String jobDescription = obj.getString("jobdesc");
+                                    String workLocation = obj.getString("worklocation");
+                                    String minEducation = obj.getString("mineducation");
+//                                    String innerdata = obj3.getString("rendered");
+//                                    String outerdata = obj4.getString("_company_tagline");
+//                                    String location = obj4.getString("_job_location");
+//                                    String salary = obj4.getString("_job_salary");
 
-                                    jobdatabase.date.add(date);
+//                                    jobdatabase.date.add(date);
                                     jobdatabase.title.add(title);
-                                    jobdatabase.innerdata.add(innerdata);
-                                    jobdatabase.outerdata.add(outerdata);
-                                    jobdatabase.location.add(location);
-                                    jobdatabase.salary.add(salary);
-                                    urls = link.getString("href");
+                                    jobdatabase.companyName.add(companyName);
+                                    jobdatabase.jobType.add(jobType);
+                                    jobdatabase.description.add(jobDescription);
+                                    jobdatabase.location.add(workLocation);
+                                    jobdatabase.education.add(minEducation);
+//                                    urls = link.getString("href");
                                 }
-                                rest();
-
+//                                rest();
+                                Log.d("Job database: ",jobdatabase.title.size()+"");
                             } catch (Exception e) {
                                 Log.e("Job Parsing Error", "Error parsing the job data: " + e.getMessage());
                             }
@@ -163,33 +170,33 @@ public class splash extends AppCompatActivity {
     }
 
 
-    void rest() {
-        if (urls.isEmpty()) {
-            Log.e("RestAPIError", "URL is empty");
-            return;
-        }
-
-        String url1 = urls;
-        RequestQueue queue1 = Volley.newRequestQueue(splash.this);
-        StringRequest stringRequest1 = new StringRequest(Request.Method.GET, url1,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONArray data = new JSONArray(response);
-                            JSONObject obj = data.getJSONObject(0);
-                            jobtype = obj.getString("name");
-                            jobdatabase.jobtype.add(jobtype);
-                            Log.d("JobType", jobtype);
-                        } catch (Exception e) {
-                            Log.e("RestAPIError", "Parsing error: " + e.getMessage());
-                        }
-                    }
-                }, error -> Log.e("RestAPIError", "Request failed: " + error.getMessage())
-        );
-
-        queue1.add(stringRequest1);
-    }
+//    void rest() {
+//        if (urls.isEmpty()) {
+//            Log.e("RestAPIError", "URL is empty");
+//            return;
+//        }
+//
+//        String url1 = urls;
+//        RequestQueue queue1 = Volley.newRequestQueue(splash.this);
+//        StringRequest stringRequest1 = new StringRequest(Request.Method.GET, url1,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        try {
+//                            JSONArray data = new JSONArray(response);
+//                            JSONObject obj = data.getJSONObject(0);
+//                            jobtype = obj.getString("name");
+//                            jobdatabase.jobtype.add(jobtype);
+//                            Log.d("JobType", jobtype);
+//                        } catch (Exception e) {
+//                            Log.e("RestAPIError", "Parsing error: " + e.getMessage());
+//                        }
+//                    }
+//                }, error -> Log.e("RestAPIError", "Request failed: " + error.getMessage())
+//        );
+//
+//        queue1.add(stringRequest1);
+//    }
 
     void course() {
         String url = "https://uptoskills.com/wp-json/learnpress/v1/courses";

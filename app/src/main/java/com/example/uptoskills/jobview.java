@@ -56,13 +56,13 @@ public class jobview extends AppCompatActivity {
 
 
         location.setText(jobdatabase.location.get(job.vlog_position));
-        post.setText(jobdatabase.date.get(job.vlog_position).substring(0,10));
-        salary.setText(jobdatabase.salary.get(job.vlog_position)+" INR / Month");
+//        post.setText(jobdatabase.date.get(job.vlog_position).substring(0,10));
+//        salary.setText(jobdatabase.salary.get(job.vlog_position)+" INR / Month");
         jobname.setText(jobdatabase.title.get(job.vlog_position));
 
 
-        String htmlCode = jobdatabase.innerdata.get(job.vlog_position);
-        main.setText(Html.fromHtml(htmlCode)+"\n\n\n\n");
+//        String htmlCode = jobdatabase.innerdata.get(job.vlog_position);
+//        main.setText(Html.fromHtml(htmlCode)+"\n\n\n\n");
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
